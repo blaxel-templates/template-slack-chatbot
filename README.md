@@ -50,10 +50,10 @@ For those who want to get up and running quickly:
 
 ```bash
 # Clone the repository
-git clone https://github.com/blaxel-templates/slack-agent.git
+git clone https://github.com/blaxel-templates/template-slack-chatbot.git
 
 # Navigate to the project directory
-cd slack-agent
+cd template-slack-chatbot
 
 # Install dependencies
 uv sync
@@ -86,8 +86,8 @@ bl serve --hotreload
 **Clone the repository and install dependencies:**
 
 ```bash
-git clone https://github.com/blaxel-templates/slack-agent.git
-cd slack-agent
+git clone https://github.com/blaxel-templates/template-slack-chatbot.git
+cd template-slack-chatbot
 uv sync
 ```
 
@@ -185,7 +185,7 @@ Edit `blaxel.toml` to customize:
    - Verify webhook URLs are publicly accessible
    - Review network connectivity and firewall settings
 
-For more help, please [submit an issue](https://github.com/blaxel-templates/slack-agent/issues) on GitHub.
+For more help, please [submit an issue](https://github.com/blaxel-templates/template-slack-chatbot/issues) on GitHub.
 
 ## 👥 Contributing
 
@@ -212,7 +212,7 @@ Please make sure to update tests as appropriate and follow the code style of the
 
 If you need help with this template:
 
-- [Submit an issue](https://github.com/blaxel-templates/slack-agent/issues) for bug reports or feature requests
+- [Submit an issue](https://github.com/blaxel-templates/template-slack-chatbot/issues) for bug reports or feature requests
 - Visit the [Blaxel Documentation](https://docs.blaxel.ai) for platform guidance
 - Check the [Slack API Documentation](https://api.slack.com/) for Slack-specific help
 - Join our [Discord Community](https://discord.gg/G3NqzUPcHP) for real-time assistance
