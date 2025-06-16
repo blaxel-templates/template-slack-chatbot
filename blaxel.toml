@@ -10,3 +10,7 @@ type = "http"
 [triggers.configuration]
 path = "agents/slack-agent"
 authenticationType = "public"
+
+[secrets]
+SLACK_APP_TOKEN = "${secrets.SLACK_APP_TOKEN}"
+SLACK_BOT_TOKEN = "${secrets.SLACK_BOT_TOKEN}"
