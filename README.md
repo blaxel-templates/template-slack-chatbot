@@ -17,21 +17,21 @@ A powerful conversational agent that integrates seamlessly with Slack workspaces
 
 ## 📑 Table of Contents
 
-- [Features](#features)
-- [Quick Start](#quick-start)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Slack Setup](#slack-setup)
-- [Usage](#usage)
+- [✨ Features](#-features)
+- [🚀 Quick Start](#-quick-start)
+- [📋 Prerequisites](#-prerequisites)
+- [💻 Installation](#-installation)
+- [🔧 Slack Setup](#-slack-setup)
+- [🔧 Usage](#-usage)
   - [Running Locally](#running-the-server-locally)
-  - [Testing](#testing-your-agent)
-      - [Deployment](#deploying-to-blaxel)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [Support](#support)
-- [License](#license)
+  - [Testing in slack](#testing-in-slack)
+  - [Deployment](#deploying-to-blaxel)
+- [📁 Project Structure](#-project-structure)
+- [⚙️ Configuration](#️-configuration)
+- [❓ Troubleshooting](#-troubleshooting)
+- [👥 Contributing](#-contributing)
+- [🆘 Support](#-support)
+- [📄 License](#-license)
 
 ## ✨ Features
 
@@ -64,9 +64,6 @@ cp .env.example .env
 
 # Start the server
 bl serve --hotreload
-
-# In another terminal, test the agent
-bl chat --local slack-agent
 ```
 
 ## 📋 Prerequisites
@@ -95,54 +92,7 @@ uv sync
 ```
 
 ## 🔧 Slack Setup
-
-Before running your Slack agent, you need to set up a Slack app and configure the necessary permissions:
-
-### 1. Create a Slack App
-
-1. Go to [Slack API Apps](https://api.slack.com/apps)
-2. Click "Create New App" → "From scratch"
-3. Name your app and select your workspace
-4. Click "Create App"
-
-### 2. Configure Bot Permissions
-
-Navigate to "OAuth & Permissions" and add these Bot Token Scopes:
-- `app_mentions:read` - View messages that directly mention your bot
-- `channels:history` - View messages in public channels
-- `channels:read` - View basic information about public channels
-- `chat:write` - Send messages as your bot
-- `groups:history` - View messages in private channels (if needed)
-- `im:history` - View messages in direct messages with your bot
-- `im:read` - View basic information about direct messages
-- `im:write` - Start direct messages with people
-
-### 3. Install App to Workspace
-
-1. In "OAuth & Permissions", click "Install to Workspace"
-2. Review permissions and click "Allow"
-3. Copy the "Bot User OAuth Token" (starts with `xoxb-`)
-
-### 4. Configure Event Subscriptions
-
-1. Go to "Event Subscriptions" and enable events
-2. Set Request URL to: `https://your-domain.com/slack/events`
-3. Subscribe to these bot events:
-   - `app_mention` - When your bot is mentioned
-   - `message.channels` - Messages in channels
-   - `message.im` - Direct messages
-
-### 5. Environment Configuration
-
-Create a `.env` file with your Slack credentials:
-
-```env
-SLACK_BOT_TOKEN=xoxb-your-bot-token
-SLACK_SIGNING_SECRET=your-signing-secret
-SLACK_APP_TOKEN=xapp-your-app-token (for Socket Mode, optional)
-```
-
-For detailed Slack setup instructions, visit the [Slack API Documentation](https://api.slack.com/start/building).
+[Setup setup](docs/SLACK_SETUP.md)
 
 ## 🔧 Usage
 
@@ -155,20 +105,6 @@ bl serve --hotreload
 ```
 
 _Note:_ This command starts the server and enables hot reload so that changes to the source code are automatically reflected.
-
-### Testing your agent
-
-You can test your agent using the chat interface:
-
-```bash
-bl chat --local slack-agent
-```
-
-Or run it directly with specific input:
-
-```bash
-bl run agent slack-agent --local --data '{"inputs": "Hello from Slack!"}'
-```
 
 ### Testing in Slack
 
@@ -191,12 +127,10 @@ This command uses your code and the configuration files under the `.blaxel` dire
 
 - **src/main.py** - Application entry point
 - **src/agent.py** - Core Slack agent implementation
-- **src/slack/** - Slack-specific functionality
-  - **bot.py** - Slack bot initialization and event handling
-  - **handlers.py** - Message and event handlers
-  - **utils.py** - Slack utility functions
+- **src/slack_integration** - Slack integration
+- **src/slack_router** - Slack router including events handling
+- **src/slack_security** - Slack check request is signed
 - **src/server/** - Server implementation and routing
-  - **router.py** - API route definitions
   - **middleware.py** - Request/response middleware
 - **pyproject.toml** - UV package manager configuration
 - **blaxel.toml** - Blaxel deployment configuration
