@@ -1,4 +1,5 @@
 import logging
+import os
 from time import time
 
 from asgi_correlation_id import CorrelationIdMiddleware
@@ -24,5 +25,32 @@ def init_middleware(app: FastAPI):
             logger.error(f"{request.method} {request.url.path} {response.status_code} {formatted_process_time}ms rid={request_id}")
         else:
             logger.info(f"{request.method} {request.url.path} {response.status_code} {formatted_process_time}ms rid={request_id}")
+
+        return response
+
+    @app.middleware("http")
+    async def add_cors_headers(request: Request, call_next):
+        app_url = "https://app.blaxel.ai" if os.getenv("BL_ENV") == "prod" else "https://app.blaxel.dev"
+
+        # Handle preflight OPTIONS requests
+        if request.method == "OPTIONS":
+            response = Response()
+            response.headers["Access-Control-Allow-Origin"] = app_url
+            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD"
+            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin, X-Request-Id, X-Blaxel-Request-Id"
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Max-Age"] = "86400"  # 24 hours
+            response.headers["Access-Control-Expose-Headers"] = "X-Request-Id, X-Blaxel-Request-Id"
+            return response
+
+        response = await call_next(request)
+
+        # Add CORS headers to all responses
+        response.headers["Access-Control-Allow-Origin"] = app_url
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Requested-With, Accept, Origin, X-Request-Id, X-Blaxel-Request-Id"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Access-Control-Max-Age"] = "86400"  # 24 hours
+        response.headers["Access-Control-Expose-Headers"] = "X-Request-Id, X-Blaxel-Request-Id"
 
         return response
