@@ -2,7 +2,7 @@ import os
 from contextlib import asynccontextmanager
 from logging import getLogger
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 
 from .server.error import init_error_handlers
@@ -18,14 +18,21 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Server shutting down")
 
+
 app = FastAPI(lifespan=lifespan)
 init_error_handlers(app)
 init_middleware(app)
 app.include_router(slack_router)
 
+
 @app.post("/")
 async def root(request: Request):
-    return "This template is designed to work with Slack.\nFor setup and usage instructions, please see: https://github.com/blaxel-templates/template-slack-chatbot/blob/main/docs/SLACK_SETUP.md"
+    return Response(
+        content="This template is designed to work with Slack.\nFor setup and usage instructions, please see: https://github.com/blaxel-templates/template-slack-chatbot/blob/main/docs/SLACK_SETUP.md",
+        status_code=200,
+        media_type="text/plain",
+    )
+
 
 FastAPIInstrumentor.instrument_app(app)
 

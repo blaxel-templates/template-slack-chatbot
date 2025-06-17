@@ -2667,7 +2667,7 @@ wheels = [
 ]
 
 [[package]]
-name = "template-google-adk-py"
+name = "template-slack"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

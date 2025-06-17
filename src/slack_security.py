@@ -6,6 +6,7 @@ from logging import getLogger
 
 logger = getLogger(__name__)
 
+
 class SlackSecurity:
     def __init__(self):
         self.signing_secret = os.getenv("SLACK_SIGNING_SECRET")
@@ -39,11 +40,9 @@ class SlackSecurity:
             sig_basestring = f"v0:{timestamp}:{body.decode('utf-8')}"
 
             # Calculate the expected signature
-            expected_signature = 'v0=' + hmac.new(
-                self.signing_secret.encode(),
-                sig_basestring.encode(),
-                hashlib.sha256
-            ).hexdigest()
+            expected_signature = (
+                "v0=" + hmac.new(self.signing_secret.encode(), sig_basestring.encode(), hashlib.sha256).hexdigest()
+            )
 
             # Compare signatures
             if hmac.compare_digest(expected_signature, signature):
@@ -55,6 +54,7 @@ class SlackSecurity:
         except Exception as e:
             logger.error(f"Error verifying Slack request: {e}")
             return False
+
 
 # Global instance
 slack_security = SlackSecurity()

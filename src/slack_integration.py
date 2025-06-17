@@ -10,6 +10,7 @@ from .agent import agent
 
 logger = getLogger(__name__)
 
+
 class SlackIntegration:
     def __init__(self):
         # Get Slack bot token from environment variable
@@ -45,20 +46,23 @@ class SlackIntegration:
             event = event_data.get("event", {})
 
             # Debug logging for all events
-            logger.debug(f"📥 Received event: type={event.get('type')}, "
-                       f"subtype={event.get('subtype')}, "
-                       f"user={event.get('user')}, "
-                       f"bot_id={event.get('bot_id')}, "
-                       f"channel={event.get('channel')}, "
-                       f"ts={event.get('ts')}")
+            logger.debug(
+                f"📥 Received event: type={event.get('type')}, "
+                f"subtype={event.get('subtype')}, "
+                f"user={event.get('user')}, "
+                f"bot_id={event.get('bot_id')}, "
+                f"channel={event.get('channel')}, "
+                f"ts={event.get('ts')}"
+            )
 
             # Only respond to messages (not bot messages to avoid loops)
-            if (event.get("type") == "message" and
-                not event.get("bot_id") and
-                not event.get("subtype") and  # Ignore message subtypes (edits, deletes, etc.)
-                event.get("text") and
-                event.get("user") != self.bot_user_id):  # Don't respond to our own messages
-
+            if (
+                event.get("type") == "message"
+                and not event.get("bot_id")
+                and not event.get("subtype")  # Ignore message subtypes (edits, deletes, etc.)
+                and event.get("text")
+                and event.get("user") != self.bot_user_id
+            ):  # Don't respond to our own messages
                 # Create unique message ID for deduplication
                 message_id = f"{event.get('channel')}_{event.get('ts')}"
 
@@ -109,11 +113,7 @@ class SlackIntegration:
 
             # Generate response using your agent
             response_parts = []
-            async for response_chunk in agent(
-                input=text,
-                user_id=user,
-                session_id=f"slack_{channel}_{user}"
-            ):
+            async for response_chunk in agent(input=text, user_id=user, session_id=f"slack_{channel}_{user}"):
                 response_parts.append(response_chunk)
 
             # Combine all response chunks
@@ -123,11 +123,19 @@ class SlackIntegration:
                 if is_dm:
                     # Send response back to DM (no threading in DMs)
                     await self._send_slack_message(channel, full_response)
-                    logger.info(f"✅ Sent DM response to user {user}: '{full_response[:100]}{'...' if len(full_response) > 100 else ''}'")
+                    msg = f"✅ Sent DM response to user {user}: '{full_response[:100]}"
+                    if len(full_response) > 100:
+                        msg += "..."
+                    msg += "'"
+                    logger.info(msg)
                 else:
                     # Send response back to Slack in thread
                     await self._send_slack_message(channel, full_response, thread_ts=ts)
-                    logger.info(f"✅ Sent response to thread in channel {channel}: '{full_response[:100]}{'...' if len(full_response) > 100 else ''}'")
+                    msg = f"✅ Sent response to thread in channel {channel}: '{full_response[:100]}"
+                    if len(full_response) > 100:
+                        msg += "..."
+                    msg += "'"
+                    logger.info(msg)
             else:
                 logger.warning(f"Agent returned empty response for message: '{text}'")
 
@@ -141,14 +149,13 @@ class SlackIntegration:
 
                     if is_dm:
                         await self._send_slack_message(
-                            channel,
-                            "Sorry, I encountered an error processing your message. Please try again."
+                            channel, "Sorry, I encountered an error processing your message. Please try again."
                         )
                     else:
                         await self._send_slack_message(
                             channel,
                             "Sorry, I encountered an error processing your message. Please try again.",
-                            thread_ts=message_event.get("ts")
+                            thread_ts=message_event.get("ts"),
                         )
                 except Exception as send_error:
                     logger.error(f"Failed to send error message: {send_error}")
@@ -158,10 +165,7 @@ class SlackIntegration:
         try:
             # Run the blocking Slack API call in a thread pool
             loop = asyncio.get_event_loop()
-            response = await loop.run_in_executor(
-                None,
-                lambda: self.client.conversations_info(channel=channel_id)
-            )
+            response = await loop.run_in_executor(None, lambda: self.client.conversations_info(channel=channel_id))
 
             # DMs have channel type 'im' (instant message)
             channel_info = response.get("channel", {})
@@ -183,17 +187,14 @@ class SlackIntegration:
                 "channel": channel,
                 "text": text,
                 "username": "AI Assistant",
-                "icon_emoji": ":robot_face:"
+                "icon_emoji": ":robot_face:",
             }
 
             # Add thread_ts if provided to reply in thread
             if thread_ts:
                 message_params["thread_ts"] = thread_ts
 
-            response = await loop.run_in_executor(
-                None,
-                lambda: self.client.chat_postMessage(**message_params)
-            )
+            response = await loop.run_in_executor(None, lambda: self.client.chat_postMessage(**message_params))
             return response
 
         except SlackApiError as e:
@@ -209,10 +210,7 @@ class SlackIntegration:
         try:
             # Open a DM channel with the user
             loop = asyncio.get_event_loop()
-            dm_response = await loop.run_in_executor(
-                None,
-                lambda: self.client.conversations_open(users=user_id)
-            )
+            dm_response = await loop.run_in_executor(None, lambda: self.client.conversations_open(users=user_id))
 
             channel_id = dm_response["channel"]["id"]
 
@@ -222,6 +220,7 @@ class SlackIntegration:
         except SlackApiError as e:
             logger.error(f"Error sending DM: {e.response['error']}")
             return None
+
 
 # Create global instance
 slack_integration = SlackIntegration()
