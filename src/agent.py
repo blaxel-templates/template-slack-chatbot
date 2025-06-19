@@ -1,8 +1,7 @@
 from logging import getLogger
 from typing import AsyncGenerator
 
-from blaxel.models import bl_model
-from blaxel.tools import bl_tools
+from blaxel.googleadk import bl_model, bl_tools
 from google.adk.agents import Agent
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
@@ -34,8 +33,8 @@ async def agent(input: str, user_id: str, session_id: str) -> AsyncGenerator[str
 You are a helpful assistant that can answer questions about weather,
 places and more generic questions about real time information.
 """
-    tools = await bl_tools(["blaxel-search"], timeout_enabled=False).to_google_adk() + [weather]
-    model = await bl_model("sandbox-openai").to_google_adk()
+    tools = await bl_tools(["blaxel-search"], timeout_enabled=False) + [weather]
+    model = await bl_model("sandbox-openai")
 
     agent = Agent(model=model, name=APP_NAME, description=description, instruction=prompt, tools=tools)
 
