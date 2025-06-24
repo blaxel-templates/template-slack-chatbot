@@ -34,7 +34,7 @@ async def root(request: Request):
     )
 
 
-FastAPIInstrumentor.instrument_app(app)
+FastAPIInstrumentor.instrument_app(app, exclude_spans=["receive", "send"])
 
 if __name__ == "__main__":
     import uvicorn
