@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "asgi-correlation-id>=4.3.4",
-    "blaxel[googleadk,telemetry]==0.2.15",
+    "blaxel[googleadk,telemetry]==0.2.19",
     "fastapi[standard]>=0.115.12",
     "rich>=13.9.4",
     "slack-sdk>=3.31.0",
