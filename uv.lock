@@ -322,7 +322,7 @@ wheels = [
 
 [[package]]
 name = "blaxel"
-version = "0.4.13"
+version = "0.4.18"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
@@ -337,9 +337,9 @@ dependencies = [
     { name = "tomli" },
     { name = "websockets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ee/ef/06d6a79f0ec5ec8f9b6447a972473e4c69c92f0dab4067066ac834e8c7cf/blaxel-0.4.13.tar.gz", hash = "sha256:a036256792e85238724b8bce38fb7c0b4f661fe4c3ac576258a8be1736ac8483", size = 580640, upload-time = "2026-09-30T20:51:52.099Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/76/63215ef89ee9ed2ec8726b7171a0ec60cf7bf69b606ebcea7ce85336c18f/blaxel-0.4.18.tar.gz", hash = "sha256:77f23b3b5771e0bfc512c94692c8d1b6d10845d7cac1ae24a66bedd08c25a146", size = 628412, upload-time = "2026-10-15T22:04:41.255Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/60/366b32386247c951a9166f0bc26aa3ec738d0594c2db2e9af5c9a36a7454/blaxel-0.4.13-py3-none-any.whl", hash = "sha256:b8817718ca63a2b31a5026f98c7191d5ed8f2f4c1aafc2d4aa57491a560a2146", size = 858813, upload-time = "2026-09-30T20:51:50.026Z" },
+    { url = "https://files.pythonhosted.org/packages/67/fb/8594a0377742f1918994f067261ad160b32d18ef9dff0912c9a063a4152c/blaxel-0.4.18-py3-none-any.whl", hash = "sha256:a6ed0c49798c21933e842cb9baba268a242bf7a4db6ecd411f48457f47933095", size = 896951, upload-time = "2026-10-15T22:04:39.267Z" },
 ]
 
 [package.optional-dependencies]
@@ -3238,7 +3238,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "asgi-correlation-id", specifier = ">=4.3.4" },
-    { name = "blaxel", extras = ["googleadk", "telemetry"], specifier = "==0.4.13" },
+    { name = "blaxel", extras = ["googleadk", "telemetry"], specifier = "==0.4.18" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.115.12" },
     { name = "rich", specifier = ">=13.9.4" },
     { name = "slack-sdk", specifier = ">=3.31.0" },
