@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      # The Blaxel SDK gets its own weekly PR so it never falls behind.
+      blaxel-sdk:
+        patterns:
+          - "blaxel"
+      # Everything else is batched into one weekly PR for minor and patch releases.
+      dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "blaxel"
+        update-types:
+          - "minor"
+          - "patch"
