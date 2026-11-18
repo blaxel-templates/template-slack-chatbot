@@ -6,7 +6,7 @@ resolution-markers = [
     "python_full_version == '3.13.*'",
     "python_full_version >= '3.12.4' and python_full_version < '3.13'",
     "python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform == 'emscripten'",
-    "(python_full_version >= '3.11' and python_full_version < '3.12.4' and sys_platform != 'emscripten') or (python_full_version == '3.11.*' and sys_platform == 'emscripten')",
+    "python_full_version == '3.11.*' or (python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform != 'emscripten')",
     "python_full_version < '3.11'",
 ]
 
@@ -266,15 +266,14 @@ wheels = [
 
 [[package]]
 name = "asgi-correlation-id"
-version = "4.3.4"
+version = "5.0.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "packaging" },
     { name = "starlette" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f4/ff/a6538245ac1eaa7733ec6740774e9d5add019e2c63caa29e758c16c0afdd/asgi_correlation_id-4.3.4.tar.gz", hash = "sha256:ea6bc310380373cb9f731dc2e8b2b6fb978a76afe33f7a2384f697b8d6cd811d", size = 20075, upload-time = "2024-10-17T11:44:30.324Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2a/25/df29145ef02ca69548e82b50ed15ac5c438ab5caf7b8e717d2b1258f5bea/asgi_correlation_id-5.0.1.tar.gz", hash = "sha256:ad54374a300f000b8bef3b39738768842394de0a3c528a6f77ef3ca053eb89a1", size = 10642, upload-time = "2026-06-09T15:09:49.112Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d9/ab/6936e2663c47a926e0659437b9333ad87d1ff49b1375d239026e0a268eba/asgi_correlation_id-4.3.4-py3-none-any.whl", hash = "sha256:36ce69b06c7d96b4acb89c7556a4c4f01a972463d3d49c675026cbbd08e9a0a2", size = 15262, upload-time = "2024-10-17T11:44:28.739Z" },
+    { url = "https://files.pythonhosted.org/packages/ae/fe/3f5a304ddc2b625a6a2fda913b29bc4675c434016557592791cf1aa39a60/asgi_correlation_id-5.0.1-py3-none-any.whl", hash = "sha256:dfea97c1fc41e8eadc3e518a311427cba6e7e79d9ddb6a6c7ea8879f2408d91d", size = 12026, upload-time = "2026-06-09T15:09:48.155Z" },
 ]
 
 [[package]]
@@ -693,7 +692,7 @@ resolution-markers = [
     "python_full_version == '3.13.*'",
     "python_full_version >= '3.12.4' and python_full_version < '3.13'",
     "python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform == 'emscripten'",
-    "(python_full_version >= '3.11' and python_full_version < '3.12.4' and sys_platform != 'emscripten') or (python_full_version == '3.11.*' and sys_platform == 'emscripten')",
+    "python_full_version == '3.11.*' or (python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform != 'emscripten')",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ef/4a/50822184bd67cc6493f0fb6a880749158fcd31ab3fa07409acfd91f9fc85/dnspython-2.9.0.tar.gz", hash = "sha256:b44dc6b18f07a8b1c56676a19fbfdb5209415b046a9cece286baafa87ff3f7f1", size = 423560, upload-time = "2026-10-09T00:07:24.352Z" }
 wheels = [
@@ -1206,7 +1205,7 @@ resolution-markers = [
     "python_full_version == '3.13.*'",
     "python_full_version >= '3.12.4' and python_full_version < '3.13'",
     "python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform == 'emscripten'",
-    "(python_full_version >= '3.11' and python_full_version < '3.12.4' and sys_platform != 'emscripten') or (python_full_version == '3.11.*' and sys_platform == 'emscripten')",
+    "python_full_version == '3.11.*' or (python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform != 'emscripten')",
     "python_full_version < '3.11'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/1c/95/aa11fc09a85d91fbc7dd405dcb2a1e0256989d67bf89fa65ae24b3ba105a/grpcio-1.71.0.tar.gz", hash = "sha256:2b85f7820475ad3edec209d3d89a7909ada16caab05d3f2e08a7e8ae3200a55c", size = 12549828, upload-time = "2025-03-10T19:28:49.203Z" }
@@ -3286,7 +3285,7 @@ resolution-markers = [
     "python_full_version == '3.13.*'",
     "python_full_version >= '3.12.4' and python_full_version < '3.13'",
     "python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform == 'emscripten'",
-    "(python_full_version >= '3.11' and python_full_version < '3.12.4' and sys_platform != 'emscripten') or (python_full_version == '3.11.*' and sys_platform == 'emscripten')",
+    "python_full_version == '3.11.*' or (python_full_version >= '3.12' and python_full_version < '3.12.4' and sys_platform != 'emscripten')",
     "python_full_version < '3.11'",
 ]
 dependencies = [
